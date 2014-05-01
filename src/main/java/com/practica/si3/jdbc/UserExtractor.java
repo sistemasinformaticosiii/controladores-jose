@@ -14,15 +14,16 @@ public class UserExtractor implements ResultSetExtractor<User> {
 			DataAccessException {
 		
 		User user = new User();
-		
-		user.setUserId(resultSet.getInt(1));
-		user.setNombre(resultSet.getString(2));
-		user.setApellidos(resultSet.getString(3));
-		user.setLocalidad(resultSet.getString(4));
-		user.setTelefono(resultSet.getString(5));
-		user.setEmail(resultSet.getString(6));
-		user.setPerfil(resultSet.getString(7));
-		user.setPass(resultSet.getString(8));
+		user.setUserUsername(resultSet.getString(1));
+		user.setUserPassword(resultSet.getString(2));
+		user.setUserId(resultSet.getInt(3));
+		user.setNombre(resultSet.getString(4));
+		user.setApellidos(resultSet.getString(5));
+		user.setLocalidad(resultSet.getString(6));
+		user.setTelefono(resultSet.getString(7));
+		user.setEmail(resultSet.getString(8));
+		user.setPerfil(resultSet.getString(9));
+		user.setPass(resultSet.getString(10));
 		
 		return user;
 	}
