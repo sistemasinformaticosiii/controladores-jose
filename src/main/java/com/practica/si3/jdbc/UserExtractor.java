@@ -14,8 +14,8 @@ public class UserExtractor implements ResultSetExtractor<User> {
 			DataAccessException {
 		
 		User user = new User();
-		user.setUserUsername(resultSet.getString(1));
-		user.setUserPassword(resultSet.getString(2));
+		user.setUsername(resultSet.getString(1));
+		user.setPassword(resultSet.getString(2));
 		user.setUserId(resultSet.getInt(3));
 		user.setNombre(resultSet.getString(4));
 		user.setApellidos(resultSet.getString(5));

@@ -19,13 +19,13 @@ public class UserDaoImpl implements UserDao {
 	public void insertData(User user) {
 
 		String sql = "INSERT INTO user "
-				+ "(nombre,apellidos,localidad,telefono,email,perfil,pass) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ "(username,password,nombre,apellidos,localidad,telefono,email,perfil,pass) VALUES (?,?,?, ?, ?, ?, ?, ?, ?)";
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
 		jdbcTemplate.update(
 				sql,
-				new Object[] { user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), user.getEmail(), user.getPerfil(), user.getPass() });
+				new Object[] { user.getUsername(),user.getPassword(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), user.getEmail(), user.getPerfil(), user.getPass() });
 	}
 
 	public List<User> getUserList() {
@@ -40,9 +40,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void deleteData(String id) {
+	public void deleteData(String username) {
 		
-		String sql = "delete from user where coduser=" + id;
+		String sql = "delete from user where username=" + username;
 		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.update(sql);
@@ -52,19 +52,19 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void updateData(User user) {
 
-		String sql = "UPDATE user set nombre = ?, apellidos = ?, localidad = ?, telefono = ?, email = ?, perfil = ?, pass = ? where coduser = ?";
+		String sql = "UPDATE user set username= ?, password = ?, nombre = ?, apellidos = ?, localidad = ?, telefono = ?, email = ?, perfil = ?, pass = ? where username = ?";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-		jdbcTemplate.update(sql, new Object[] { user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), 
+		jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), 
 				user.getEmail(), user.getPerfil(), user.getPass(), user.getUserId() });
 	}
 
 	@Override
-	public User getUser(String id) {
+	public User getUser(String username) {
 		
 		List<User> userList = new ArrayList<User>();
 		
-		String sql = "select * from user where coduser= " + id;
+		String sql = "select * from user where username= " + username;
 		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		userList = jdbcTemplate.query(sql, new UserRowMapper());
@@ -77,11 +77,11 @@ public class UserDaoImpl implements UserDao {
 	 * @return Devuelve True si hay un usuario cuyo campo email se corresponde con el parametro id. Falso en caso contrario.
 	 */
 	@Override
-	public boolean existUser(String id) {
+	public boolean existUser(String username) {
 	
 		List<User> userList = new ArrayList<User>();
 		
-		String sql = "select * from user where email = " + "'" + id + "'";
+		String sql = "select * from user where username = " + "'" + username+ "'";
 		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		userList = jdbcTemplate.query(sql, new UserRowMapper());
@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
 		
 		List<User> userList = new ArrayList<User>();
 		
-		String sql = "select * from user where email = " + "'" + campo1 + "'" + " AND " + "pass = " + "'" + campo2 + "'";
+		String sql = "select * from user where username = " + "'" + campo1 + "'" + " AND " + "password = " + "'" + campo2 + "'";
 		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		userList = jdbcTemplate.query(sql, new UserRowMapper());

@@ -1,7 +1,10 @@
 package com.practica.si3.domain;
 
 public class User {
-
+	
+	
+	private String username;
+	private String password;
 	private int userId;
 	private String nombre;
 	private String apellidos;
@@ -10,6 +13,24 @@ public class User {
 	private String email;
 	private String perfil;
 	private String pass;
+	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -74,4 +95,6 @@ public class User {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+
+	
 }
