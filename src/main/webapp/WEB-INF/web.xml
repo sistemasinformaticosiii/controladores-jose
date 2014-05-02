@@ -28,6 +28,7 @@
 		<param-value>
 		    /WEB-INF/spring-servlet.xml
 			/WEB-INF/spring-security.xml
+			/WEB-INF/spring-webflow.xml
 		</param-value>
 	</context-param>
 	
@@ -42,4 +43,6 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
 </web-app>

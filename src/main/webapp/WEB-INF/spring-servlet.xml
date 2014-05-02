@@ -51,6 +51,10 @@
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:embedded-database>
     
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+ 		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+    
     
  
 </beans>

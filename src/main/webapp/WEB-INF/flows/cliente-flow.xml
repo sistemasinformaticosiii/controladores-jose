@@ -1,0 +1,31 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <input name="criterioBusqueda" />
+
+    <on-start>
+        <evaluate expression="bookingService.createBooking(hotelId, currentUser.name)" 
+                  result="flowScope.booking" />
+    </on-start>
+
+    <view-state id="listadoOfertas">
+        <transition on="submit" to="revisarOferta" />
+    </view-state>
+	
+    <view-state id="revisarOferta">
+        <transition on="confirm" to="reservaConfirmada" />
+        <transition on="revise" to="introducirDetalleOferta" />
+        <transition on="cancel" to="reservaCancelada" />
+    </view-state>
+    
+    <view-state id="introducirDetalleOferta">
+        <transition on="confirm" to="reservaConfirmada" />
+    </view-state>
+	
+    <end-state id="reservaConfirmada" />
+
+    <end-state id="reservaCancelada" />
+		
+</flow>	
