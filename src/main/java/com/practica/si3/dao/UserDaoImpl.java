@@ -19,13 +19,13 @@ public class UserDaoImpl implements UserDao {
 	public void insertData(User user) {
 
 		String sql = "INSERT INTO user "
-				+ "(username,password,nombre,apellidos,localidad,telefono,email,perfil,pass) VALUES (?,?,?, ?, ?, ?, ?, ?, ?)";
+				+ "(username, enabled,coduser, nombre,apellidos,localidad,telefono,email,perfil,pass) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
 		jdbcTemplate.update(
 				sql,
-				new Object[] { user.getUsername(),user.getPassword(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), user.getEmail(), user.getPerfil(), user.getPass() });
+				new Object[] { user.getUsername(),user.getEnabled(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), user.getEmail(), user.getPerfil(), user.getPass() });
 	}
 
 	public List<User> getUserList() {
@@ -52,10 +52,10 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void updateData(User user) {
 
-		String sql = "UPDATE user set username= ?, password = ?, nombre = ?, apellidos = ?, localidad = ?, telefono = ?, email = ?, perfil = ?, pass = ? where username = ?";
+		String sql = "UPDATE user set username= ?, enabled = ?, nombre = ?, apellidos = ?, localidad = ?, telefono = ?, email = ?, perfil = ?, pass = ? where username = ?";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-		jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), 
+		jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getEnabled(), user.getNombre(), user.getApellidos(), user.getLocalidad(), user.getTelefono(), 
 				user.getEmail(), user.getPerfil(), user.getPass(), user.getUserId() });
 	}
 

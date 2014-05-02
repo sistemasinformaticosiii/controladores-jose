@@ -4,7 +4,7 @@ public class User {
 	
 	
 	private String username;
-	private String password;
+	private Boolean enabled;
 	private int userId;
 	private String nombre;
 	private String apellidos;
@@ -24,12 +24,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public int getUserId() {
