@@ -157,7 +157,7 @@ td {
 					
 					<td><a href="editOferta?id=${oferta.codOferta}">Detalle</a></td>
 					
-					<td><a href="/si3/reservaOferta?id=${oferta.codOferta}">Reservar</a></td>
+					<td><a href="/si3/cliente/reservaOferta?id=${oferta.codOferta}&fecha=${criterioBusqueda.getFecha()}">Reservar</a></td>
 				</tr>
         </c:forEach>
     </table>

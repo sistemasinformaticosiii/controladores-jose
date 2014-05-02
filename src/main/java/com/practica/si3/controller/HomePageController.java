@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,7 +51,8 @@ public class HomePageController {
 
 	@RequestMapping("/register")
 	public ModelAndView registerUser(@ModelAttribute User user) {
-
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String name = authentication.getName();
 		List<String> tipoList = new ArrayList<String>();
 		tipoList.add("Entradas");
 		tipoList.add("Restaurantes");
@@ -62,6 +66,7 @@ public class HomePageController {
 		Map<String, List> map = new HashMap<String, List>();
 		map.put("tipoList", tipoList);
 		map.put("perfilList", perfilList);
+		
 		return new ModelAndView("register", "map", map);
 	}
 	
@@ -186,6 +191,7 @@ public class HomePageController {
 			//Salimos si hay un error en la validación
 			return "filtroOfertas";
         }		
+		model.addAttribute(criterioBusqueda);
 		//Creamos un listado con todas las ofertas que cumplen el criterio 
 		List<Oferta> listaOfertas = new ArrayList<Oferta>();
 		listaOfertas=this.ofertaService.filterOferta(criterioBusqueda);
@@ -244,10 +250,17 @@ public class HomePageController {
 		return new ModelAndView("editOferta", "map", map);
 	}
 	
-	@RequestMapping("/reservaOferta")
-	public ModelAndView reservaOferta(@ModelAttribute Reservation reservation) {
+	@RequestMapping(value="/cliente/reservaOferta",  method = RequestMethod.GET)
+	public String mostrarReservaOferta(ModelMap model, @ModelAttribute Reservation reservation, @RequestParam("id") String idOferta, @RequestParam("fecha") String fechaBusqueda) {
+		Oferta oferta = ofertaService.getOferta(idOferta);
+		model.addAttribute("oferta",oferta);
+		model.addAttribute("fecha", fechaBusqueda);
+		return "cliente/reservaOferta";
+	}
+	@RequestMapping(value="/cliente/reservaOferta",  method = RequestMethod.POST)
+	public String confirmarReservaOferta(ModelMap model, @ModelAttribute Reservation reservation) {
 		
-		return new ModelAndView("reservaOferta");
+		return "cliente/reservaOferta";
 	}
 	
 	@RequestMapping("/update")
